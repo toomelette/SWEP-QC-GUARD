@@ -40,6 +40,10 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.', 'middleware' => ['che
 
 	/** MENU **/
 	Route::resource('menu', 'MenuController');
+
+
+	/** EMPLOYEE BODY TEMPERATURE **/
+	Route::resource('emp_body_temp', 'EmpBodyTempController');
 	
 });
 
@@ -49,9 +53,30 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.', 'middleware' => ['che
 
 
 /** Testing **/
-Route::get('/dashboard/test', function(){
+// Route::get('/dashboard/test', function(){
 
-	//return dd(Illuminate\Support\Str::random(16));
+// 	$cos_list = App\Models\CosMaster::get();
+// 	foreach ($cos_list as $data) {
 
-});
+// 		$cos_obj = App\Models\CosMaster::select('cos_id')->orderBy('cos_id', 'desc')->first();
+
+// 		$id = "";
+
+// 	 	 if($cos_obj != null){
+// 	 	     if($cos_obj->cos_id != null){
+// 	 	         $num = str_replace('COS', '', $cos_obj->cos_id) + 1;
+// 	 	         $id = 'COS' . $num;
+// 	 	     }
+// 	 	 }
+
+// 		$cos = App\Models\CosMaster::find($data->id);
+// 		$cos->cos_id = $id;
+// 		$cos->save();
+// 		echo $cos->slug .'</br>';
+
+// 	}
+
+// 	return $cos->cos_id .'<br>';
+
+// });
 

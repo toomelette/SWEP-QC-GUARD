@@ -26,6 +26,11 @@ class ViewComposerServiceProvider extends ServiceProvider{
         // SUBMENU
         View::composer(['dashboard.user.create', 
                         'dashboard.user.edit'], 'App\Core\ViewComposers\SubmenuComposer');
+        
+
+        // EMPLOYEES
+        View::composer(['dashboard.emp_body_temp.create', 
+                        'dashboard.emp_body_temp.edit'], 'App\Core\ViewComposers\EmpMasterComposer');
 
         
     }
