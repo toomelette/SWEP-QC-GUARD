@@ -12,7 +12,7 @@ class CosMaster extends Model{
 
 
     protected $table = 'cos_master';
-    protected $dates = ['fullname', 'position', 'created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at'];
 	public $timestamps = false;
 
 

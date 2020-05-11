@@ -24,9 +24,11 @@ class RepositoryServiceProvider extends ServiceProvider {
 
 		$this->app->bind('App\Core\Interfaces\ProfileInterface', 'App\Core\Repositories\ProfileRepository');
 
-		$this->app->bind('App\Core\Interfaces\EmpBodyTempInterface', 'App\Core\Repositories\EmpBodyTempRepository');
+		$this->app->bind('App\Core\Interfaces\BodyTempInterface', 'App\Core\Repositories\BodyTempRepository');
 
 		$this->app->bind('App\Core\Interfaces\EmpMasterInterface', 'App\Core\Repositories\EmpMasterRepository');
+
+		$this->app->bind('App\Core\Interfaces\CosMasterInterface', 'App\Core\Repositories\CosMasterRepository');
 		
 	}
 

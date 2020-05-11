@@ -29,8 +29,13 @@ class ViewComposerServiceProvider extends ServiceProvider{
         
 
         // EMPLOYEES
-        View::composer(['dashboard.emp_body_temp.create', 
-                        'dashboard.emp_body_temp.edit'], 'App\Core\ViewComposers\EmpMasterComposer');
+        View::composer(['dashboard.body_temp.create', 
+                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\EmpMasterComposer');
+        
+
+        // COS
+        View::composer(['dashboard.body_temp.create', 
+                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\CosMasterComposer');
 
         
     }

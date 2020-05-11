@@ -43,7 +43,7 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.', 'middleware' => ['che
 
 
 	/** EMPLOYEE BODY TEMPERATURE **/
-	Route::resource('emp_body_temp', 'EmpBodyTempController');
+	Route::resource('body_temp', 'BodyTempController');
 	
 });
 

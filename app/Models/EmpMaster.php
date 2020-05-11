@@ -55,29 +55,6 @@ class EmpMaster extends Model{
     public function getFullnameAttribute(){
         return strtoupper($this->firstname .' '. substr($this->middlename , 0, 1) . '. ' . $this->lastname .' '. $this->suffixname);
     }
-
-
-    // public function getSexAttribute($value){
-
-    //     if ($value == 'F') {
-    //         return 'FEMALE';
-    //     }elseif($value == 'M'){
-    //         return 'MALE';
-    //     }
-
-    // }
-
-
-    // public function getCivilStatusAttribute($value){
-
-    //     if ($value == 'S') {
-    //         return 'SINGLE';
-    //     }elseif($value == 'M'){
-    //         return 'MARRIED';
-    //     }
-
-    // }
-
 	
     
 }
