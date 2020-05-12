@@ -16,6 +16,47 @@
     <div class="box box-solid">
         
       <div class="box-header with-border">
+        <h2 class="box-title">Table</h2>
+      </div>
+
+      <table class="table table-bordered">
+          
+        <thead>
+          <td>Status</td>
+          <td>Temperature</td>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Below Normal</td>
+            <td>36.0°C Down</td>
+          </tr>
+
+          <tr>
+            <td>Normal</td>
+            <td>36.0°C - 37.2°C</td>
+          </tr>
+
+          <tr>
+            <td>Above Normal</td>
+            <td>37.3°C - 37.9°C</td>
+          </tr>
+
+          <tr>
+            <td>Fever</td>
+            <td>38.0°C Up</td>
+          </tr>
+          
+        </tbody>
+
+      </table>
+
+    </div>
+            
+    <div class="box box-solid">
+        
+      <div class="box-header with-border">
         <h2 class="box-title">Edit Personnel Body Temperature</h2>
         <div class="pull-right">
             <code>Fields with asterisks(*) are required</code>
@@ -37,7 +78,7 @@
             ) !!}
 
             {!! __form::select_static(
-              '4', 'status', 'Body Temperature *', old('status') ? old('status') : $body_temp->status, ['Below Normal' => '1', 'Normal' => '2', 'Above Normal' => '3'], $errors->has('status'), $errors->first('status'), '', ''
+              '4', 'status', 'Body Temperature *', old('status') ? old('status') : $body_temp->status, ['Below Normal' => '1', 'Normal' => '2', 'Above Normal' => '3', 'Fever' => '4'], $errors->has('status'), $errors->first('status'), '', ''
             ) !!}
 
         </div>

@@ -82,8 +82,12 @@ class BodyTemp extends Model{
             
         }elseif ($this->status == 3) {
             
-            $status = '<span class="badge bg-red">ABOVE NORMAL</span>';
+            $status = '<span class="badge bg-orange">ABOVE NORMAL</span>';
             
+        }elseif ($this->status == 4) {
+            
+            $status = '<span class="badge bg-red">Fever</span>';
+        
         }
 
         return $status;
