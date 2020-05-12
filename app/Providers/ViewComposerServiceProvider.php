@@ -36,6 +36,16 @@ class ViewComposerServiceProvider extends ServiceProvider{
         // COS
         View::composer(['dashboard.body_temp.create', 
                         'dashboard.body_temp.edit'], 'App\Core\ViewComposers\CosMasterComposer');
+        
+
+        // Janitors
+        View::composer(['dashboard.body_temp.create', 
+                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\JanitorMasterComposer');
+        
+
+        // Sec Guards
+        View::composer(['dashboard.body_temp.create', 
+                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\SecGuardMasterComposer');
 
         
     }

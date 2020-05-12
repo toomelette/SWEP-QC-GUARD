@@ -42,10 +42,20 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
                            })
                            ->orWhereHas('cosMaster', function ($model) use ($request) {
                                 $model->where('fullname', 'LIKE', '%'. $request->q .'%');
+                           })
+                           ->orWhereHas('janitorMaster', function ($model) use ($request) {
+                                $model->where('firstname', 'LIKE', '%'. $request->q .'%')
+                                      ->orWhere('middlename', 'LIKE', '%'. $request->q .'%')
+                                      ->orWhere('lastname', 'LIKE', '%'. $request->q .'%');
+                           })
+                           ->orWhereHas('secGuardMaster', function ($model) use ($request) {
+                                $model->where('firstname', 'LIKE', '%'. $request->q .'%')
+                                      ->orWhere('middlename', 'LIKE', '%'. $request->q .'%')
+                                      ->orWhere('lastname', 'LIKE', '%'. $request->q .'%');
                            });
             }
 
-            return $body_temp->select('emp_id', 'cos_id', 'is_reg_emp', 'status', 'created_at', 'slug')
+            return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'cat', 'status', 'created_at', 'slug')
                              ->sortable()
                              ->orderBy('updated_at', 'desc')
                              ->paginate($entries);
@@ -69,10 +79,16 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
         
         if ($id == 'E') {
             $body_temp->emp_id = $request->id;
-            $body_temp->is_reg_emp = 1;
+            $body_temp->cat = 1;
         }elseif($id == 'C'){
             $body_temp->cos_id = $request->id;
-            $body_temp->is_reg_emp = 0;
+            $body_temp->cat = 2;
+        }elseif($id == 'J'){
+            $body_temp->janitor_id = $request->id;
+            $body_temp->cat = 3;
+        }elseif($id == 'S'){
+            $body_temp->sec_guard_id = $request->id;
+            $body_temp->cat = 4;
         }
 
         $body_temp->status = $request->status;
@@ -99,10 +115,16 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
         
         if ($id == 'E') {
             $body_temp->emp_id = $request->id;
-            $body_temp->is_reg_emp = 1;
+            $body_temp->cat = 1;
         }elseif($id == 'C'){
             $body_temp->cos_id = $request->id;
-            $body_temp->is_reg_emp = 0;
+            $body_temp->cat = 2;
+        }elseif($id == 'J'){
+            $body_temp->janitor_id = $request->id;
+            $body_temp->cat = 3;
+        }elseif($id == 'S'){
+            $body_temp->sec_guard_id = $request->id;
+            $body_temp->cat = 4;
         }
 
         $body_temp->status = $request->status;

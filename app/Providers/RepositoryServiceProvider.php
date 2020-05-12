@@ -29,6 +29,10 @@ class RepositoryServiceProvider extends ServiceProvider {
 		$this->app->bind('App\Core\Interfaces\EmpMasterInterface', 'App\Core\Repositories\EmpMasterRepository');
 
 		$this->app->bind('App\Core\Interfaces\CosMasterInterface', 'App\Core\Repositories\CosMasterRepository');
+
+		$this->app->bind('App\Core\Interfaces\JanitorMasterInterface', 'App\Core\Repositories\JanitorMasterRepository');
+
+		$this->app->bind('App\Core\Interfaces\SecGuardMasterInterface', 'App\Core\Repositories\SecGuardMasterRepository');
 		
 	}
 

@@ -53,30 +53,33 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.', 'middleware' => ['che
 
 
 /** Testing **/
-// Route::get('/dashboard/test', function(){
+Route::get('/dashboard/test', function(){
 
-// 	$cos_list = App\Models\CosMaster::get();
-// 	foreach ($cos_list as $data) {
+	//return dd(Illuminate\Support\Str::random(16));
 
-// 		$cos_obj = App\Models\CosMaster::select('cos_id')->orderBy('cos_id', 'desc')->first();
+	$list = App\Models\SecGuardMaster::get();
+	foreach ($list as $data) {
 
-// 		$id = "";
+		$obj = App\Models\SecGuardMaster::select('sec_guard_id')->orderBy('sec_guard_id', 'desc')->first();
 
-// 	 	 if($cos_obj != null){
-// 	 	     if($cos_obj->cos_id != null){
-// 	 	         $num = str_replace('COS', '', $cos_obj->cos_id) + 1;
-// 	 	         $id = 'COS' . $num;
-// 	 	     }
-// 	 	 }
+		$id = "";
 
-// 		$cos = App\Models\CosMaster::find($data->id);
-// 		$cos->cos_id = $id;
-// 		$cos->save();
-// 		echo $cos->slug .'</br>';
+	 	 if($obj != null){
+	 	     if($obj->sec_guard_id != null){
+	 	         $num = str_replace('SG', '', $obj->sec_guard_id) + 1;
+	 	         $id = 'SG' . $num;
+	 	     }
+	 	 }
 
-// 	}
+		$cos = App\Models\SecGuardMaster::find($data->id);
+		$cos->sec_guard_id = $id;
+		$cos->slug = Illuminate\Support\Str::random(16);
+		$cos->save();
+		echo $cos->slug .'</br>';
 
-// 	return $cos->cos_id .'<br>';
+	}
 
-// });
+	return $cos->sec_guard_id .'<br>';
+
+});
 
