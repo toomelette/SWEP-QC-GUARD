@@ -169,6 +169,54 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
 
 
+    public function getByPersonnelId($p_id){
+
+        $body_temp = $this->cache->remember('body_temp:getByPersonnel:' . $p_id, 240, function() use ($p_id){
+                
+            $id = substr($p_id, 0, 1);
+
+            $body_temp_list = [];
+
+            if ($id == 'E') {
+                return $this->body_temp->where('emp_id', $p_id)->get();
+            }elseif($id == 'C'){
+                return $this->body_temp->where('cos_id', $p_id)->get();
+            }elseif($id == 'J'){
+                return $this->body_temp->where('janitor_id', $p_id)->get();
+            }elseif($id == 'S'){
+                return $this->body_temp->where('sec_guard_id', $p_id)->get();
+            }
+
+            return $body_temp_list;
+
+        }); 
+
+        return $body_temp;
+
+    }
+
+
+
+
+    public function countByCreatedAtStatus($df, $dt, $status){
+
+        $body_temp = $this->cache->remember('body_temp:countByCreatedAtStatus:'.$df.'-'.$dt.'-'.$status, 240, function() use ($df, $dt,$status){
+
+            return $this->body_temp->where('created_at','>=',$df)
+                                   ->where('created_at','<=',$dt)
+                                   ->where('status', $status)
+                                   ->count();
+
+        }); 
+
+        return $body_temp;
+
+    }
+
+
+
+
+
     public function getBodyTempIdInc(){
 
         $id = 'BT10001';

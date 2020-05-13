@@ -30,22 +30,26 @@ class ViewComposerServiceProvider extends ServiceProvider{
 
         // EMPLOYEES
         View::composer(['dashboard.body_temp.create', 
-                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\EmpMasterComposer');
+                        'dashboard.body_temp.edit', 
+                        'dashboard.body_temp.reports'], 'App\Core\ViewComposers\EmpMasterComposer');
         
 
         // COS
         View::composer(['dashboard.body_temp.create', 
-                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\CosMasterComposer');
+                        'dashboard.body_temp.edit', 
+                        'dashboard.body_temp.reports'], 'App\Core\ViewComposers\CosMasterComposer');
         
 
         // Janitors
         View::composer(['dashboard.body_temp.create', 
-                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\JanitorMasterComposer');
+                        'dashboard.body_temp.edit', 
+                        'dashboard.body_temp.reports'], 'App\Core\ViewComposers\JanitorMasterComposer');
         
 
         // Sec Guards
         View::composer(['dashboard.body_temp.create', 
-                        'dashboard.body_temp.edit'], 'App\Core\ViewComposers\SecGuardMasterComposer');
+                        'dashboard.body_temp.edit', 
+                        'dashboard.body_temp.reports'], 'App\Core\ViewComposers\SecGuardMasterComposer');
 
         
     }

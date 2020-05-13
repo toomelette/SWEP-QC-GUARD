@@ -14,6 +14,10 @@ interface BodyTempInterface {
 
 	public function destroy($slug);
 
-	public function findBySlug($menu_id);
+	public function findBySlug($slug);
+
+	public function getByPersonnelId($p_id);
+
+	public function countByCreatedAtStatus($df, $dt, $status);
 		
 }

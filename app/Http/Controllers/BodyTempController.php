@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Core\Interfaces\BodyTempInterface;
 use App\Http\Requests\BodyTemp\BodyTempFormRequest;
 use App\Http\Requests\BodyTemp\BodyTempFilterRequest;
+use App\Http\Requests\BodyTemp\BodyTempReportFilterRequest;
 
 
 class BodyTempController extends Controller{
@@ -74,6 +75,39 @@ class BodyTempController extends Controller{
         $this->event->fire('body_temp.destroy', $body_temp);
         return redirect()->back();
 
+    }
+
+    
+
+    public function reports(){
+        return view('dashboard.body_temp.reports');
+    }
+
+    
+
+    public function reportPrint(BodyTempReportFilterRequest $request){
+
+        if ($request->type == 'bd') {
+
+            $days = $this->__dynamic->days_between_dates($request->df, $request->dt, 'Y-m-d');
+
+            $list = [];
+
+            for ($i=0; $i <= 4; $i++) { 
+                for ($j=1; $j <= 4; $j++) { 
+                    $list[$i][$j] = $this->body_temp_repo->countByCreatedAtStatus($days[$i]. ' 00:00:00', $days[$i]. ' 24:00:00', $j);
+                }
+            }
+
+            return view('printables.body_temp.by_date')->with('list', $list); 
+
+        }elseif ($request->type == 'bp') {
+
+            $body_temp = $this->body_temp_repo->getByPersonnelId($request->p_id);
+            return view('printables.body_temp.by_personnel')->with('body_temp', $body_temp); 
+
+        }
+        
     }
 
 

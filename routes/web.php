@@ -43,6 +43,8 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.', 'middleware' => ['che
 
 
 	/** EMPLOYEE BODY TEMPERATURE **/
+	Route::get('/body_temp/reports', 'BodyTempController@reports')->name('body_temp.reports');
+	Route::get('/body_temp/report_print', 'BodyTempController@reportPrint')->name('body_temp.report_print');
 	Route::resource('body_temp', 'BodyTempController');
 	
 });
