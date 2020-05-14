@@ -87,26 +87,30 @@ class BodyTempController extends Controller{
 
     public function reportPrint(BodyTempReportFilterRequest $request){
 
-        if ($request->type == 'bd') {
+        $df = $this->__dataType->date_parse($request->df, 'Y-m-d');
+        $dt = $this->__dataType->date_parse($request->dt, 'Y-m-d');
 
-            $days = $this->__dynamic->days_between_dates($request->df, $request->dt, 'Y-m-d');
+        if ($request->type == 'cbd') {
 
             $list = [];
 
+            $days = $this->__dynamic->days_between_dates($request->df, $request->dt, 'Y-m-d');
+
             for ($i=0; $i <= 4; $i++) { 
                 for ($j=1; $j <= 4; $j++) { 
-                    $list[$i][$j] = $this->body_temp_repo->countByCreatedAtStatus($days[$i]. ' 00:00:00', $days[$i]. ' 24:00:00', $j);
+                    $list[$i][$j] = $this->body_temp_repo->countByDateStatus($days[$i], $days[$i], $j);
                 }
             }
 
-            return view('printables.body_temp.by_date')->with('list', $list); 
+            return view('printables.body_temp.count_by_date')->with('list', $list); 
 
-        }elseif ($request->type == 'bp') {
-
-            $body_temp = $this->body_temp_repo->getByPersonnelId($request->p_id);
-            return view('printables.body_temp.by_personnel')->with('body_temp', $body_temp); 
+        }elseif ($request->type == 'lopbd') {
+            
+            $body_temp_list = $this->body_temp_repo->getByDate($df, $dt);
+            return view('printables.body_temp.list_of_personnel_by_date')->with('body_temp_list', $body_temp_list); 
 
         }
+
         
     }
 

@@ -18,6 +18,8 @@ interface BodyTempInterface {
 
 	public function getByPersonnelId($p_id);
 
-	public function countByCreatedAtStatus($df, $dt, $status);
+	public function countByDateStatus($df, $dt, $status);
+
+	public function getByDate($df, $dt);
 		
 }

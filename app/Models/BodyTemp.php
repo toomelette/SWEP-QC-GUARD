@@ -12,7 +12,7 @@ class BodyTemp extends Model{
     use Sortable;
 
     protected $table = 'body_temp';
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['date', 'created_at', 'updated_at'];
 	public $timestamps = false;
 
 
@@ -32,6 +32,7 @@ class BodyTemp extends Model{
         'body_temp_id' => '',
         'cat' => 0,
         'status' => 0,
+        'date' => null,
         'created_at' => null,
         'updated_at' => null,
         'ip_created' => '',
@@ -101,7 +102,7 @@ class BodyTemp extends Model{
 
 
 
-    public function displayStatus(){
+    public function displayStatusSpan(){
 
         $status = '';
 
@@ -112,10 +113,58 @@ class BodyTemp extends Model{
         }elseif ($this->status == 3) {
             $status = '<span class="badge bg-orange">ABOVE NORMAL</span>';
         }elseif ($this->status == 4) {
-            $status = '<span class="badge bg-red">Fever</span>';
+            $status = '<span class="badge bg-red">FEVER</span>';
         }
 
         return $status;
+
+    }
+
+
+
+    public function displayStatusText(){
+
+        $status = '';
+
+        if ($this->status == 1) {
+            $status = 'BELOW NORMAL';
+        }elseif ($this->status == 2) {
+            $status = 'NORMAL';
+        }elseif ($this->status == 3) {
+            $status = 'ABOVE NORMAL';
+        }elseif ($this->status == 4) {
+            $status = 'FEVER';
+        }
+
+        return $status;
+
+    }
+
+
+
+    public function displayCategoryText(){
+
+        $cat = '';
+
+        if ($this->cat == 1) {
+            
+            $cat = 'REGULAR EMPLOYEE';
+            
+        }elseif ($this->cat == 2) {
+            
+            $cat = 'CONTRACT OF SERVICE';
+            
+        }elseif ($this->cat == 3) {
+            
+            $cat = 'JANITORIAL';
+            
+        }elseif ($this->cat == 4) {
+            
+            $cat = 'SECURITY SERVICE';
+            
+        }
+
+        return $cat;
 
     }
 

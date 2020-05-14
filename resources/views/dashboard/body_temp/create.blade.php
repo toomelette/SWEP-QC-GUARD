@@ -81,6 +81,10 @@
             '4', 'status', 'Body Temperature *', old('status'), ['Below Normal' => '1', 'Normal' => '2', 'Above Normal' => '3', 'Fever' => '4'], $errors->has('status'), $errors->first('status'), '', ''
           ) !!}
 
+          {!! __form::datepicker(
+            '4', 'date',  'Date', old('date') ? old('date') : Carbon::now()->format('m/d/Y'), $errors->has('date'), $errors->first('date')
+          ) !!}
+
         </div>
 
 

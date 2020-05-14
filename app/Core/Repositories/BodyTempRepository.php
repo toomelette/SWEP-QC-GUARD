@@ -55,7 +55,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
                            });
             }
 
-            return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'cat', 'status', 'created_at', 'slug')
+            return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'cat', 'status', 'date', 'slug')
                              ->sortable()
                              ->orderBy('updated_at', 'desc')
                              ->paginate($entries);
@@ -92,6 +92,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
         }
 
         $body_temp->status = $request->status;
+        $body_temp->date = $this->__dataType->date_parse($request->date);
         $body_temp->created_at = $this->carbon->now();
         $body_temp->updated_at = $this->carbon->now();
         $body_temp->ip_created = request()->ip();
@@ -127,6 +128,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
             $body_temp->cat = 4;
         }
 
+        $body_temp->date = $this->__dataType->date_parse($request->date);
         $body_temp->status = $request->status;
         $body_temp->updated_at = $this->carbon->now();
         $body_temp->ip_updated = request()->ip();
@@ -198,14 +200,31 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
 
 
-    public function countByCreatedAtStatus($df, $dt, $status){
+    public function countByDateStatus($df, $dt, $status){
 
-        $body_temp = $this->cache->remember('body_temp:countByCreatedAtStatus:'.$df.'-'.$dt.'-'.$status, 240, function() use ($df, $dt,$status){
+        $body_temp = $this->cache->remember('body_temp:countByDateStatus:'.$df.'-'.$dt.'-'.$status, 240, function() use ($df, $dt,$status){
 
-            return $this->body_temp->where('created_at','>=',$df)
-                                   ->where('created_at','<=',$dt)
+            return $this->body_temp->whereBetween('date', [$df,$dt])
                                    ->where('status', $status)
                                    ->count();
+
+        }); 
+
+        return $body_temp;
+
+    }
+
+
+
+
+    public function getByDate($df, $dt){
+
+        $body_temp = $this->cache->remember('body_temp:getByDate:'.$df.'-'.$dt, 240, function() use ($df, $dt){
+
+            return $this->body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'cat', 'status', 'date')
+                                   ->whereBetween('date', [$df,$dt])
+                                   ->orderBy('cat', 'asc')
+                                   ->get();
 
         }); 
 

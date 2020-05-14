@@ -83,6 +83,10 @@
               '4', 'status', 'Body Temperature *', old('status') ? old('status') : $body_temp->status, ['Below Normal' => '1', 'Normal' => '2', 'Above Normal' => '3', 'Fever' => '4'], $errors->has('status'), $errors->first('status'), '', ''
             ) !!}
 
+            {!! __form::datepicker(
+              '4', 'date',  'Date', old('date') ? old('date') : $body_temp->date, $errors->has('date'), $errors->first('date')
+            ) !!}
+
         </div>
 
 

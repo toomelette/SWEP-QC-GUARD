@@ -17,19 +17,18 @@
 
 <section class="content">
             
-
-    {{-- By Date --}}
+    {{-- Count By Date --}}
     <div class="box box-solid">
         
       <div class="box-header with-border">
-        <h2 class="box-title">By Date</h2>
+        <h2 class="box-title">Count By Date</h2>
       </div>
       
       <form method="GET" autocomplete="off" action="{{ route('dashboard.body_temp.report_print') }}" target="_blank">
 
         <div class="box-body">    
 
-          <input type="hidden" name="type" value="bd">
+          <input type="hidden" name="type" value="cbd">
 
           {!! __form::datepicker(
             '3', 'df',  'From *', old('df'), $errors->has('df'), $errors->first('df')
@@ -48,24 +47,28 @@
       </form>
 
     </div>
-
-
             
-    {{-- By Personnel --}}
+
+
+    {{-- List of Personnels By Date --}}
     <div class="box box-solid">
         
       <div class="box-header with-border">
-        <h2 class="box-title">By Personnel</h2>
+        <h2 class="box-title">List of Personnels By Date</h2>
       </div>
       
       <form method="GET" autocomplete="off" action="{{ route('dashboard.body_temp.report_print') }}" target="_blank">
 
         <div class="box-body">    
 
-          <input type="hidden" name="type" value="bp">
-          
-          {!! __form::select_static(
-            '4', 'p_id', 'Personnel *', old('p_id'), $personnel_list, $errors->has('p_id'), $errors->first('p_id'), 'select2', ''
+          <input type="hidden" name="type" value="lopbd">
+
+          {!! __form::datepicker(
+            '3', 'df',  'From *', old('df'), $errors->has('df'), $errors->first('df')
+          ) !!}
+
+          {!! __form::datepicker(
+            '3', 'dt',  'To *', old('dt'), $errors->has('dt'), $errors->first('dt')
           ) !!}
 
         </div>
@@ -76,8 +79,7 @@
 
       </form>
 
-    </div>
-
+    </div
 
 </section>
 

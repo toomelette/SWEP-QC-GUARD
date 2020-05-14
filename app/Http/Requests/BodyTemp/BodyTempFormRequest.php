@@ -24,6 +24,7 @@ class BodyTempFormRequest extends FormRequest{
             
             'id'=>'required|string|max:11',
             'status'=>'required|string|max:1',
+            'date' => 'required|date_format:"m/d/Y"',
 
         ];
 
