@@ -4,8 +4,9 @@
   $cos_list = $global_cos_all->pluck('cos_id', 'fullname')->toArray();
   $janitor_list = $global_janitor_all->pluck('janitor_id', 'fullname')->toArray();
   $sec_guard_list = $global_sec_guard_all->pluck('sec_guard_id', 'fullname')->toArray();
+  $sp_list = $global_surecco_personnels_all->pluck('sp_id', 'fullname')->toArray();
 
-  $personnel_list = array_merge($employee_list, $cos_list, $janitor_list, $sec_guard_list);
+  $personnel_list = array_merge($employee_list, $cos_list, $janitor_list, $sec_guard_list, $sp_list);
 
 ?>
 
