@@ -55,7 +55,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
                            });
             }
 
-            return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'cat', 'status', 'date', 'slug')
+            return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'sp_id', 'cat', 'status', 'date', 'slug')
                              ->sortable()
                              ->orderBy('updated_at', 'desc')
                              ->paginate($entries);
@@ -89,6 +89,9 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
         }elseif($id == 'S'){
             $body_temp->sec_guard_id = $request->id;
             $body_temp->cat = 4;
+        }elseif($id == 'O'){
+            $body_temp->sp_id = $request->id;
+            $body_temp->cat = 5;
         }
 
         $body_temp->status = $request->status;
@@ -126,6 +129,9 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
         }elseif($id == 'S'){
             $body_temp->sec_guard_id = $request->id;
             $body_temp->cat = 4;
+        }elseif($id == 'O'){
+            $body_temp->sp_id = $request->id;
+            $body_temp->cat = 5;
         }
 
         $body_temp->date = $this->__dataType->date_parse($request->date);
@@ -187,7 +193,10 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
                 return $this->body_temp->where('janitor_id', $p_id)->get();
             }elseif($id == 'S'){
                 return $this->body_temp->where('sec_guard_id', $p_id)->get();
+            }elseif($id == 'O'){
+                return $this->body_temp->where('sp_id', $p_id)->get();
             }
+
 
             return $body_temp_list;
 
@@ -221,7 +230,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
         $body_temp = $this->cache->remember('body_temp:getByDate:'.$df.'-'.$dt, 240, function() use ($df, $dt){
 
-            return $this->body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'cat', 'status', 'date')
+            return $this->body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'sp_id', 'cat', 'status', 'date')
                                    ->whereBetween('date', [$df,$dt])
                                    ->orderBy('cat', 'asc')
                                    ->get();

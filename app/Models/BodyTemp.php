@@ -20,6 +20,7 @@ class BodyTemp extends Model{
     // 2 = COS
     // 3 = Janitor 
     // 4 = Security Guard
+    // 5 = Surecco Personnel
 
 
     protected $attributes = [
@@ -29,6 +30,7 @@ class BodyTemp extends Model{
         'cos_id' => '',
         'janitor_id' => '',
         'sec_guard_id' => '',
+        'sp_id' => '',
         'body_temp_id' => '',
         'cat' => 0,
         'status' => 0,
@@ -65,6 +67,10 @@ class BodyTemp extends Model{
     }
 
 
+    public function sureccoPersonnel() {
+        return $this->belongsTo('App\Models\SureccoPersonnel','sp_id','sp_id');
+    }
+
 
     public function getFullnameAttribute(){
 
@@ -92,6 +98,12 @@ class BodyTemp extends Model{
             
             if ($this->secGuardMaster) {
                 $fullname = strtoupper($this->secGuardMaster->fullname); 
+            }
+            
+        }elseif ($this->cat == 5) {
+            
+            if ($this->sureccoPersonnel) {
+                $fullname = strtoupper($this->sureccoPersonnel->fullname); 
             }
             
         }
@@ -162,6 +174,10 @@ class BodyTemp extends Model{
             
             $cat = 'SECURITY SERVICE';
             
+        }elseif ($this->cat == 5) {
+            
+            $cat = 'SURECCO PERSONNEL';
+            
         }
 
         return $cat;
@@ -198,6 +214,12 @@ class BodyTemp extends Model{
                 $cat = $this->sec_guard_id;
             }
             
+        }elseif ($this->cat == 5) {
+            
+            if ($this->sureccoPersonnel) {
+                $cat = $this->sp_id;
+            }
+            
         }
 
         return $cat;
@@ -205,5 +227,6 @@ class BodyTemp extends Model{
     }
 
     
+
     
 }

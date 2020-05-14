@@ -33,6 +33,8 @@ class RepositoryServiceProvider extends ServiceProvider {
 		$this->app->bind('App\Core\Interfaces\JanitorMasterInterface', 'App\Core\Repositories\JanitorMasterRepository');
 
 		$this->app->bind('App\Core\Interfaces\SecGuardMasterInterface', 'App\Core\Repositories\SecGuardMasterRepository');
+
+		$this->app->bind('App\Core\Interfaces\SureccoPersonnelInterface', 'App\Core\Repositories\SureccoPersonnelRepository');
 		
 	}
 

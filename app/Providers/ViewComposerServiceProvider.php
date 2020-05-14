@@ -50,6 +50,12 @@ class ViewComposerServiceProvider extends ServiceProvider{
         View::composer(['dashboard.body_temp.create', 
                         'dashboard.body_temp.edit', 
                         'dashboard.body_temp.reports'], 'App\Core\ViewComposers\SecGuardMasterComposer');
+        
+
+        // Surecco Personnels
+        View::composer(['dashboard.body_temp.create', 
+                        'dashboard.body_temp.edit', 
+                        'dashboard.body_temp.reports'], 'App\Core\ViewComposers\SureccoPersonnelComposer');
 
         
     }

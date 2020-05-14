@@ -55,33 +55,33 @@ Route::group(['prefix'=>'dashboard', 'as' => 'dashboard.', 'middleware' => ['che
 
 
 /** Testing **/
-Route::get('/dashboard/test', function(){
+//Route::get('/dashboard/test', function(){
 
 	//return dd(Illuminate\Support\Str::random(16));
 
-	$list = App\Models\SecGuardMaster::get();
-	foreach ($list as $data) {
+	// $list = App\Models\SecGuardMaster::get();
+	// foreach ($list as $data) {
 
-		$obj = App\Models\SecGuardMaster::select('sec_guard_id')->orderBy('sec_guard_id', 'desc')->first();
+	// 	$obj = App\Models\SecGuardMaster::select('sec_guard_id')->orderBy('sec_guard_id', 'desc')->first();
 
-		$id = "";
+	// 	$id = "";
 
-	 	 if($obj != null){
-	 	     if($obj->sec_guard_id != null){
-	 	         $num = str_replace('SG', '', $obj->sec_guard_id) + 1;
-	 	         $id = 'SG' . $num;
-	 	     }
-	 	 }
+	//  	 if($obj != null){
+	//  	     if($obj->sec_guard_id != null){
+	//  	         $num = str_replace('SG', '', $obj->sec_guard_id) + 1;
+	//  	         $id = 'SG' . $num;
+	//  	     }
+	//  	 }
 
-		$cos = App\Models\SecGuardMaster::find($data->id);
-		$cos->sec_guard_id = $id;
-		$cos->slug = Illuminate\Support\Str::random(16);
-		$cos->save();
-		echo $cos->slug .'</br>';
+	// 	$cos = App\Models\SecGuardMaster::find($data->id);
+	// 	$cos->sec_guard_id = $id;
+	// 	$cos->slug = Illuminate\Support\Str::random(16);
+	// 	$cos->save();
+	// 	echo $cos->slug .'</br>';
 
-	}
+	// }
 
-	return $cos->sec_guard_id .'<br>';
+	// return $cos->sec_guard_id .'<br>';
 
-});
+//});
 
