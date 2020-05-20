@@ -6,6 +6,9 @@
                         'q'=> Request::get('q'),
                         'sort' => Request::get('sort'),
                         'direction' => Request::get('direction'),
+                        
+                        'df' => Request::get('df'),
+                        'dt' => Request::get('dt'),
                       ];
 
 ?>
@@ -24,6 +27,25 @@
     {{-- Form Start --}}
     <form data-pjax class="form" id="filter_form" method="GET" autocomplete="off" action="{{ route('dashboard.body_temp.index') }}">
 
+
+    {{-- Advance Filters --}}
+    {!! __html::filter_open() !!}
+
+      <div class="col-md-12 no-padding">
+        
+        <h5>Date Filter : </h5>
+
+        {!! __form::datepicker('3', 'df',  'From', old('df'), '', '') !!}
+
+        {!! __form::datepicker('3', 'dt',  'To', old('dt'), '', '') !!}
+
+        <button type="submit" class="btn btn-primary" style="margin:25px;">Filter Date <i class="fa fa-fw fa-arrow-circle-right"></i></button>
+
+      </div>
+
+    {!! __html::filter_close('submit_dv_filter') !!}
+
+
     <div class="box box-solid" id="pjax-container" style="overflow-x:auto;">
 
       {{-- Table Search --}}        
@@ -38,9 +60,9 @@
       <div class="box-body no-padding">
         <table class="table table-hover">
           <tr>
-            <th>@sortablelink('', 'Employee')</th>
-            <th>@sortablelink('', 'Status')</th>
-            <th>@sortablelink('', 'Date')</th>
+            <th>@sortablelink('empMaster.lastname', 'Employee')</th>
+            <th>@sortablelink('status', 'Status')</th>
+            <th>@sortablelink('date', 'Date')</th>
             <th style="width: 150px">Action</th>
           </tr>
           @foreach($body_temp_list as $data) 

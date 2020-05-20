@@ -32,7 +32,10 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
         $body_temp_list = $this->cache->remember('body_temp:fetch:' . $key, 240, function() use ($request, $entries){
 
             $body_temp = $this->body_temp->newQuery();
-            
+                
+            $df = $this->__dataType->date_parse($request->df);
+            $dt = $this->__dataType->date_parse($request->dt);
+
             if(isset($request->q)){
                 $body_temp->whereHas('empMaster', function ($model) use ($request) {
                                 $model->where('firstname', 'LIKE', '%'. $request->q .'%')
@@ -53,6 +56,10 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
                                       ->orWhere('middlename', 'LIKE', '%'. $request->q .'%')
                                       ->orWhere('lastname', 'LIKE', '%'. $request->q .'%');
                            });
+            }
+
+            if(isset($request->df) || isset($request->dt)){
+                $body_temp->whereBetween('date',[$df,$dt]);
             }
 
             return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'sp_id', 'cat', 'status', 'date', 'slug')
@@ -213,9 +220,62 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
         $body_temp = $this->cache->remember('body_temp:countByDateStatus:'.$df.'-'.$dt.'-'.$status, 240, function() use ($df, $dt,$status){
 
-            return $this->body_temp->whereBetween('date', [$df,$dt])
+            $emp = $this->body_temp->select('emp_id')
+                                    ->whereBetween('date', [$df,$dt])
+                                    ->where('status', $status)
+                                    ->where('cos_id', '')
+                                    ->where('janitor_id', '')
+                                    ->where('sec_guard_id', '')
+                                    ->where('sp_id', '')
+                                    ->groupBy('emp_id')
+                                    ->get()
+                                    ->count();
+
+            $cos = $this->body_temp->select('cos_id')
+                                   ->whereBetween('date', [$df,$dt])
                                    ->where('status', $status)
+                                   ->where('emp_id', '')
+                                   ->where('janitor_id', '')
+                                   ->where('sec_guard_id', '')
+                                   ->where('sp_id', '')
+                                   ->groupBy('cos_id')
+                                   ->get()
                                    ->count();
+
+            $janitor = $this->body_temp->select('janitor_id')
+                                       ->whereBetween('date', [$df,$dt])
+                                       ->where('status', $status)
+                                       ->where('emp_id', '')
+                                       ->where('cos_id', '')
+                                       ->where('sec_guard_id', '')
+                                       ->where('sp_id', '')
+                                       ->groupBy('janitor_id')
+                                       ->get()
+                                       ->count();
+
+            $sec_guard = $this->body_temp->select('sec_guard_id')
+                                         ->whereBetween('date', [$df,$dt])
+                                         ->where('status', $status)
+                                         ->where('emp_id', '')
+                                         ->where('cos_id', '')
+                                         ->where('janitor_id', '')
+                                         ->where('sp_id', '')
+                                         ->groupBy('sec_guard_id')
+                                         ->get()
+                                         ->count();
+
+            $sp = $this->body_temp->select('sp_id')
+                                  ->whereBetween('date', [$df,$dt])
+                                  ->where('status', $status)
+                                  ->where('emp_id', '')
+                                  ->where('cos_id', '')
+                                  ->where('janitor_id', '')
+                                  ->where('sec_guard_id', '')
+                                  ->groupBy('sp_id')
+                                  ->get()
+                                  ->count();
+
+            return $emp + $cos + $janitor + $sec_guard + $sp;
 
         }); 
 
