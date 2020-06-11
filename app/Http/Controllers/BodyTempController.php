@@ -41,8 +41,6 @@ class BodyTempController extends Controller{
    
     public function store(BodyTempFormRequest $request){
 
-        dd($this->body_temp_repo->isExistByCurrentDate($request->id, $request->date));
-
         if ($this->body_temp_repo->isExistByCurrentDate($request->id, $request->date)) {
                 
             $this->session->flash("BODY_TEMP_IS_EXIST","The Personnel is already added in today's Record.");
