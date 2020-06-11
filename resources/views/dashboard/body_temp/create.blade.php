@@ -71,6 +71,10 @@
       <form method="POST" autocomplete="off" action="{{ route('dashboard.body_temp.store') }}">
 
         <div class="box-body">
+            
+          @if(Session::has('BODY_TEMP_IS_EXIST'))
+            {!! __html::alert('warning', '<i class="icon fa fa-ban"></i> Cannot submit record!', Session::get('BODY_TEMP_IS_EXIST')) !!}
+          @endif
                   
           @csrf    
           

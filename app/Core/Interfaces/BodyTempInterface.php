@@ -21,5 +21,7 @@ interface BodyTempInterface {
 	public function countByDateStatus($df, $dt, $status);
 
 	public function getByDate($df, $dt);
+
+	public function isExistByCurrentDate($id, $date);
 		
 }

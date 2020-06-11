@@ -304,6 +304,21 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
 
 
+    public function isExistByCurrentDate($id, $date){
+
+      return $this->body_temp->where('emp_id',$id)
+                             ->orWhere('cos_id',$id)
+                             ->orWhere('janitor_id',$id)
+                             ->orWhere('sec_guard_id',$id)
+                             ->orWhere('sp_id', 'asc')
+                             ->whereDate('date', $date)
+                             ->exists();
+
+    }
+
+
+
+
 
     public function getBodyTempIdInc(){
 
@@ -323,6 +338,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
         return $id;
         
     }
+
 
 
 
