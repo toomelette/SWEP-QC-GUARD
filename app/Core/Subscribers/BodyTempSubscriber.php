@@ -33,6 +33,7 @@ class BodyTempSubscriber extends BaseSubscriber{
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:fetch:*');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:countByDateStatus:*');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getByDate:*');
+        $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getByDateStatus:*');
 
         $this->session->flash('BODY_TEMP_CREATE_SUCCESS', 'The Body Temperature has been successfully created!');
 
@@ -48,6 +49,7 @@ class BodyTempSubscriber extends BaseSubscriber{
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getAll');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:countByDateStatus:*');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getByDate:*');
+        $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getByDateStatus:*');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:findBySlug:'. $body_temp->slug .'');
 
         $this->session->flash('BODY_TEMP_UPDATE_SUCCESS', 'The Body Temperature has been successfully updated!');
@@ -63,6 +65,7 @@ class BodyTempSubscriber extends BaseSubscriber{
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getAll');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:countByDateStatus:*');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getByDate:*');
+        $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:getByDateStatus:*');
         $this->__cache->deletePattern(''. config('app.name') .'_cache:body_temp:findBySlug:'. $body_temp->slug .'');
 
         $this->session->flash('BODY_TEMP_DELETE_SUCCESS', 'The Body Temperature has been successfully deleted!');

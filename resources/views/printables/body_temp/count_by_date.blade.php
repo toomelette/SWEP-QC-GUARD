@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Purchase Order</title>
+	<title>Personnel Body Temperature</title>
 	<link rel="stylesheet" href="{{ asset('template/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('template/bower_components/font-awesome/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css') }}">
@@ -22,7 +22,7 @@
 </head>
 <body onload="window.print();" onafterprint="window.close()">
 
-	<section class="invoice">
+	<section class="invoice" style="page-break-after:always">
 
 
     {{-- HEADER --}}
@@ -37,7 +37,7 @@
           <span>Republic of the Philippines</span><br>
           <span style="font-size:15px; font-weight:bold;">SUGAR REGULATORY ADMINISTRATION</span><br>
           <span>North Avenue, Diliman, Quezon City</span><br>
-          <span>Weekly Personnel Body Temperature Report</span><br>
+          <span>Personnel Body Temperature Report</span><br>
           <span>As of {{ __dataType::date_scope(Request::get('df'), Request::get('dt')) }}</span>
         </div>
       </div>
@@ -139,6 +139,77 @@
     </div>
 
   </section>
+
+
+
+  {{-- Next Page --}}
+  <section>
+
+    <div class="row">
+
+      <div class="col-xs-12 table-responsive">
+        <h3>Above Normal</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Fullname</th>
+              <th>Category</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            @php
+              $an = 0;
+            @endphp
+            @foreach ($above_normal_list as $data)
+              <tr>
+                <td>{{ $an += 1 }}</td>
+                <td>{{ $data->fullname }}</td>
+                <td>{{ $data->displayCategoryText() }}</td>
+                <td>{{ __dataType::date_parse($data->date, 'F d, Y') }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+      </div>
+
+
+
+      <div class="col-xs-12 table-responsive">
+        <h3>Fever</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Fullname</th>
+              <th>Category</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            @php
+              $f = 0;
+            @endphp
+            @foreach ($fever_list as $data)
+              <tr>
+                <td>{{ $f += 1 }}</td>
+                <td>{{ $data->fullname }}</td>
+                <td>{{ $data->displayCategoryText() }}</td>
+                <td>{{ __dataType::date_parse($data->date, 'F d, Y') }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
 
 </body>
 </html>

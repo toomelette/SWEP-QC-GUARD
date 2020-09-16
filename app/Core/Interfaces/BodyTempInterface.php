@@ -22,6 +22,10 @@ interface BodyTempInterface {
 
 	public function getByDate($df, $dt);
 
+	public function getByDatePersonnel($df, $dt, $id);
+
+	public function getByDateStatus($df, $dt, $status);
+
 	public function isExistByCurrentDate($id, $date);
 		
 }

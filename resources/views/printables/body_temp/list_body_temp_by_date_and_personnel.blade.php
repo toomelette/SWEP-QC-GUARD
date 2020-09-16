@@ -29,7 +29,7 @@
           <span>Republic of the Philippines</span><br>
           <span style="font-size:15px; font-weight:bold;">SUGAR REGULATORY ADMINISTRATION</span><br>
           <span>North Avenue, Diliman, Quezon City</span><br>
-          <span>List of Personnel Body Temperature by Date</span><br>
+          <span>Personnel Body Temperature Report</span><br>
           <span>As of {{ __dataType::date_scope(Request::get('df'), Request::get('dt')) }}</span>
         </div>
 
@@ -47,8 +47,6 @@
 
           <thead>
             <tr>
-              <th>Personnel</th>
-              <th>Category</th>
               <th>Status</th>
               <th>Date</th>
             </tr>
@@ -56,24 +54,12 @@
 
 
           <tbody>
-
-            @php
-              $days = __dynamic::days_between_dates(Request::get('df'), Request::get('dt'), 'm/d/Y');
-            @endphp
-
-            @foreach ($days as $data_days)
-              @foreach ($body_temp_list->sortBy('fullname') as $data)
-                @if ($data_days == $data->date->format('m/d/Y'))
-                  <tr>
-                    <td>{{ $data->fullname }}</td>
-                    <td>{{ $data->displayCategoryText() }}</td>
-                    <td>{!! $data->displayStatusText() !!}</td>
-                    <td>{{ $data->date->format('F d, Y') }}</td>
-                  </tr>
-                @endif
-              @endforeach
+            @foreach ($body_temp_list->sortBy('date') as $data)
+              <tr>
+                <td>{!! $data->displayStatusText() !!}</td>
+                <td>{{ $data->date->format('F d, Y') }}</td>
+              </tr>
             @endforeach
-
           </tbody>
 
         </table>

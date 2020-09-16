@@ -159,25 +159,15 @@ class BodyTemp extends Model{
         $cat = '';
 
         if ($this->cat == 1) {
-            
             $cat = 'REGULAR EMPLOYEE';
-            
         }elseif ($this->cat == 2) {
-            
             $cat = 'CONTRACT OF SERVICE';
-            
         }elseif ($this->cat == 3) {
-            
             $cat = 'JANITORIAL';
-            
         }elseif ($this->cat == 4) {
-            
             $cat = 'SECURITY SERVICE';
-            
         }elseif ($this->cat == 5) {
-            
             $cat = 'SURECCO PERSONNEL';
-            
         }
 
         return $cat;

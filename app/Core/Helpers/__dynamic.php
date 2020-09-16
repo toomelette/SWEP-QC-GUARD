@@ -34,7 +34,7 @@ class __dynamic{
 
     public static function days_between_dates($start_date, $end_date, $format){
 
-    	$start_date = Carbon::parse($start_date);
+    	  $start_date = Carbon::parse($start_date);
       	$end_date   = Carbon::parse($end_date);
 
       	$dates = [];

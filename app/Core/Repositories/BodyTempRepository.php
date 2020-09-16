@@ -122,24 +122,24 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
         $body_temp = $this->findBySlug($slug);
         
-        $id = substr($request->id, 0, 1);
-        
-        if ($id == 'E') {
-            $body_temp->emp_id = $request->id;
-            $body_temp->cat = 1;
-        }elseif($id == 'C'){
-            $body_temp->cos_id = $request->id;
-            $body_temp->cat = 2;
-        }elseif($id == 'J'){
-            $body_temp->janitor_id = $request->id;
-            $body_temp->cat = 3;
-        }elseif($id == 'S'){
-            $body_temp->sec_guard_id = $request->id;
-            $body_temp->cat = 4;
-        }elseif($id == 'O'){
-            $body_temp->sp_id = $request->id;
-            $body_temp->cat = 5;
-        }
+          $id = substr($request->id, 0, 1);
+          
+          if ($id == 'E') {
+              $body_temp->emp_id = $request->id;
+              $body_temp->cat = 1;
+          }elseif($id == 'C'){
+              $body_temp->cos_id = $request->id;
+              $body_temp->cat = 2;
+          }elseif($id == 'J'){
+              $body_temp->janitor_id = $request->id;
+              $body_temp->cat = 3;
+          }elseif($id == 'S'){
+              $body_temp->sec_guard_id = $request->id;
+              $body_temp->cat = 4;
+          }elseif($id == 'O'){
+              $body_temp->sp_id = $request->id;
+              $body_temp->cat = 5;
+          }
 
         $body_temp->date = $this->__dataType->date_parse($request->date);
         $body_temp->status = $request->status;
@@ -286,11 +286,90 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
 
 
+    public function getByDatePersonnel($df, $dt, $id){
+
+        $body_temp = $this->cache->remember('body_temp:getByDatePersonnel:'.$df.'-'.$dt.'-'.$id, 240, function() use ($df, $dt,$id){
+
+          $letter = substr($id, 0, 1);
+          
+          if ($letter == 'E') {
+          
+            $body_temp = $this->body_temp->select('emp_id', 'status', 'date')
+                                         ->with('empMaster')
+                                         ->whereBetween('date', [$df,$dt])
+                                         ->where('emp_id', $id)
+                                         ->get();
+
+          }elseif($letter == 'C'){
+          
+            $body_temp = $this->body_temp->select('cos_id', 'status', 'date')
+                                         ->with('cosMaster')
+                                         ->whereBetween('date', [$df,$dt])
+                                         ->where('cos_id', $id)
+                                         ->get();
+
+          }elseif($letter == 'J'){
+          
+            $body_temp = $this->body_temp->select('janitor_id', 'status', 'date')
+                                         ->with('janitorMaster')
+                                         ->whereBetween('date', [$df,$dt])
+                                         ->where('janitor_id', $id)
+                                         ->get();
+
+          }elseif($letter == 'S'){
+          
+            $body_temp = $this->body_temp->select('sec_guard_id', 'status', 'date')
+                                         ->with('secGuardMaster')
+                                         ->whereBetween('date', [$df,$dt])
+                                         ->where('sec_guard_id', $id)
+                                         ->get();
+
+          }elseif($letter == 'O'){
+          
+            $body_temp = $this->body_temp->select('sp_id', 'status', 'date')
+                                         ->with('sureccoPersonnel')
+                                         ->whereBetween('date', [$df,$dt])
+                                         ->where('sp_id', $id)
+                                         ->get();
+
+          }
+
+          return $body_temp;
+
+        }); 
+
+        return $body_temp;
+
+    }
+
+
+
+
     public function getByDate($df, $dt){
 
         $body_temp = $this->cache->remember('body_temp:getByDate:'.$df.'-'.$dt, 240, function() use ($df, $dt){
 
             return $this->body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'sp_id', 'cat', 'status', 'date')
+                                   ->with('empMaster', 'cosMaster', 'janitorMaster', 'secGuardMaster', 'sureccoPersonnel')
+                                   ->whereBetween('date', [$df,$dt])
+                                   ->get();
+
+        }); 
+
+        return $body_temp;
+
+    }
+
+
+
+
+    public function getByDateStatus($df, $dt, $status){
+
+        $body_temp = $this->cache->remember('body_temp:getByDateStatus:'.$df.'-'.$dt.':'.$status, 240, function() use ($df, $dt, $status){
+
+            return $this->body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'sp_id', 'cat', 'status', 'date')
+                                   ->with('empMaster', 'cosMaster', 'janitorMaster', 'secGuardMaster', 'sureccoPersonnel')
+                                   ->where('status', $status)
                                    ->whereBetween('date', [$df,$dt])
                                    ->orderBy('cat', 'asc')
                                    ->get();
@@ -307,7 +386,6 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
     public function isExistByCurrentDate($id, $date){
 
       $date = $this->__dataType->date_parse($date);
-        
       $sub_id = substr($id, 0, 1);
       
       if ($sub_id == 'E') {
@@ -333,16 +411,13 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
     public function getBodyTempIdInc(){
 
         $id = 'BT10001';
-
         $body_temp = $this->body_temp->select('body_temp_id')->orderBy('body_temp_id', 'desc')->first();
 
         if($body_temp != null){
-
             if($body_temp->body_temp_id != null){
                 $num = str_replace('BT', '', $body_temp->body_temp_id) + 1;
                 $id = 'BT' . $num;
             }
-        
         }
         
         return $id;

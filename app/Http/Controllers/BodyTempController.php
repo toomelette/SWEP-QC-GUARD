@@ -110,16 +110,32 @@ class BodyTempController extends Controller{
                 }
             }
 
-            return view('printables.body_temp.count_by_date')->with('list', $list); 
+
+        $above_normal_list = $this->body_temp_repo->getByDateStatus($df, $dt, 3);
+        $fever_list = $this->body_temp_repo->getByDateStatus($df, $dt, 4);
+
+        return view('printables.body_temp.count_by_date')->with([
+            'list' => $list,
+            'above_normal_list' => $above_normal_list,
+            'fever_list' => $fever_list,
+        ]); 
 
         }elseif ($request->type == 'lopbd') {
             
             $body_temp_list = $this->body_temp_repo->getByDate($df, $dt);
-            return view('printables.body_temp.list_of_personnel_by_date')->with('body_temp_list', $body_temp_list); 
+            return view('printables.body_temp.list_of_personnel_by_date')->with(
+                'body_temp_list', $body_temp_list
+            ); 
+
+        }elseif ($request->type == 'ibt') {
+            
+            $body_temp_list = $this->body_temp_repo->getByDatePersonnel($df, $dt, $request->id);
+            return view('printables.body_temp.list_body_temp_by_date_and_personnel')->with(
+                'body_temp_list', $body_temp_list
+            ); 
 
         }
 
-        
     }
 
 
