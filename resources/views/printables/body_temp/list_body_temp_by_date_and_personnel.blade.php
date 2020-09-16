@@ -47,6 +47,7 @@
 
           <thead>
             <tr>
+              <th>Name</th>
               <th>Status</th>
               <th>Date</th>
             </tr>
@@ -56,6 +57,7 @@
           <tbody>
             @foreach ($body_temp_list->sortBy('date') as $data)
               <tr>
+                <td>{{ $data->fullname }}</td>
                 <td>{!! $data->displayStatusText() !!}</td>
                 <td>{{ $data->date->format('F d, Y') }}</td>
               </tr>

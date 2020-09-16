@@ -294,7 +294,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
           
           if ($letter == 'E') {
           
-            $body_temp = $this->body_temp->select('emp_id', 'status', 'date')
+            $body_temp = $this->body_temp->select('emp_id', 'cat', 'status', 'date')
                                          ->with('empMaster')
                                          ->whereBetween('date', [$df,$dt])
                                          ->where('emp_id', $id)
@@ -302,7 +302,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
           }elseif($letter == 'C'){
           
-            $body_temp = $this->body_temp->select('cos_id', 'status', 'date')
+            $body_temp = $this->body_temp->select('cos_id', 'cat', 'status', 'date')
                                          ->with('cosMaster')
                                          ->whereBetween('date', [$df,$dt])
                                          ->where('cos_id', $id)
@@ -310,7 +310,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
           }elseif($letter == 'J'){
           
-            $body_temp = $this->body_temp->select('janitor_id', 'status', 'date')
+            $body_temp = $this->body_temp->select('janitor_id', 'cat', 'status', 'date')
                                          ->with('janitorMaster')
                                          ->whereBetween('date', [$df,$dt])
                                          ->where('janitor_id', $id)
@@ -318,7 +318,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
           }elseif($letter == 'S'){
           
-            $body_temp = $this->body_temp->select('sec_guard_id', 'status', 'date')
+            $body_temp = $this->body_temp->select('sec_guard_id', 'cat', 'status', 'date')
                                          ->with('secGuardMaster')
                                          ->whereBetween('date', [$df,$dt])
                                          ->where('sec_guard_id', $id)
@@ -326,7 +326,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
 
           }elseif($letter == 'O'){
           
-            $body_temp = $this->body_temp->select('sp_id', 'status', 'date')
+            $body_temp = $this->body_temp->select('sp_id', 'cat', 'status', 'date')
                                          ->with('sureccoPersonnel')
                                          ->whereBetween('date', [$df,$dt])
                                          ->where('sp_id', $id)
