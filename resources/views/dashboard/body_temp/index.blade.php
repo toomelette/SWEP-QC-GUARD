@@ -63,6 +63,7 @@
             <th>@sortablelink('empMaster.lastname', 'Employee')</th>
             <th>@sortablelink('status', 'Status')</th>
             <th>@sortablelink('date', 'Date')</th>
+            <th>@sortablelink('date', 'Timestamp')</th>
             <th style="width: 150px">Action</th>
           </tr>
           @foreach($body_temp_list as $data) 
@@ -70,6 +71,7 @@
               <td id="mid-vert">{{ $data->fullname }}</td>
               <td id="mid-vert">{!! $data->displayStatusSpan() !!}</td>
               <td id="mid-vert">{!! $data->date->format('F d, Y') !!}</td>
+              <td id="mid-vert">{!! $data->created_at->format('F d, Y h:i A') !!}</td>
               <td id="mid-vert">
                 <div class="btn-group">
                   <a type="button" class="btn btn-default" id="edit_button" href="{{ route('dashboard.body_temp.edit', $data->slug) }}">

@@ -62,7 +62,7 @@ class BodyTempRepository extends BaseRepository implements BodyTempInterface {
                 $body_temp->whereBetween('date',[$df,$dt]);
             }
 
-            return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'sp_id', 'cat', 'status', 'date', 'slug')
+            return $body_temp->select('emp_id', 'cos_id', 'janitor_id', 'sec_guard_id', 'sp_id', 'cat', 'status', 'date', 'created_at', 'slug')
                              ->sortable()
                              ->orderBy('updated_at', 'desc')
                              ->paginate($entries);
